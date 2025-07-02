@@ -1,0 +1,9 @@
+create or replace table Student("Roll_no"varchar(50),"S_Name"varchar(50),"Mobile_no"number(10),"cgpa"float,"doj"date);
+insert into student values('23P31A4441','JSSR',8790495709,9.56,'2/26/2006');
+select * from student;
+ALTER table student ADD column "College" varchar(100);
+update student set "College"='ACET';
+Alter table student add column "dob" date;
+update student set "dob"='7/14/2005';
+INSERT INTO  student ("Roll_no","S_Name","Mobile_no","cgpa","doj","College") values('23P31A4430','NEERAJA',1234567891,9.8,'7/14/2006','ACET'),('23P31A4434','LALITHA',2134567892,9.4,'7/14/2005','AEC'),('23P31A4444','SOWMYA',3214567893,9.2,'5/18/2006','ACOE'),('23P31A4426','TANUJA',4123567894,9.2,'6/26/2006','ACET');
+
