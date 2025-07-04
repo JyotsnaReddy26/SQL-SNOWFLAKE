@@ -1,0 +1,28 @@
+show databases;
+use role accountadmin;
+use warehouse testing_wh;
+use database testing_db;
+use schema test_schema;
+ 
+create table IRIS_TABLE("SL" FLOAT,"PL" FLOAT,"SW" FLOAT,"PW" FLOAT);
+ALTER table IRIS_TABLE add column "CLASS" STRING;
+select * from IRIS_TABLE;
+
+alter table iris_table add "colour" varchar(50);
+alter table iris_table drop "colour";
+select min(SL) FROM iris_table;
+select max(sw) from iris_table;
+select sum(pl) from iris_table;
+select avg(pw) from iris_table;
+select avg(pl) from iris_table;
+
+DESCRIBE table iris_table;
+select sl from iris_table;
+select sl from iris_table where class!='iris-virginica';
+select * from iris_table where pl > (SELECT AVG(PL) FROM IRIS_TABLE);
+select * from iris_table  where pl>(select avg(pl) from iris_table where class='Iris-versicolor');
+select * from iris_table where pl>(select avg(pl) from iris_table where class='Iris-setosa');
+select * from iris_table  where pl>(select avg(pl) from iris_table where class='Iris-virginica');
+select * from iris_table  where pl>(select avg(pl) from iris_table where class=iris_table.class);
+
+select * from iris_table where pl>(select avg(pl)from iris_table where class=iris_table.class) order by pl desc limit 2;
