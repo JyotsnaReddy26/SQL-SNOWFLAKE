@@ -1,0 +1,80 @@
+use role accountadmin;
+use warehouse testing_wh;
+use database testing_db;
+use schema test_schema;
+show databases;
+
+SELECT * from HR_DATA;
+create or replace table HR_data("Age"number,"Attrition"boolean, "BusinessTravel"string, "DailyRate"number,	"Department"string,	"DistanceFromHome"number,	"Education"number,"EducationField"string,"EmployeeCount"number,"EmployeeNumber"number,"EnvironmentSatisfaction"number,"Gender"string,"HourlyRate"number,	"JobInvolvement"number,"JobLevel"number,"JobRole"string,"JobSatisfaction"number,"MaritalStatus"string,"MonthlyIncome"number,"MonthlyRate"number,	"NumCompaniesWorked"number,"Over18"boolean,"OverTime"boolean,"PercentSalaryHike"number,"PerformanceRating"number,"RelationshipSatisfaction"number,	"StandardHours"number,"StockOptionLevel"number,"TotalWorkingYears"number,"TrainingTimesLastYear"number,"WorkLifeBalance"number,"YearsAtCompany"number,	"YearsInCurrentRole"number,	"YearsSinceLastPromotion"number,"YearsWithCurrManager"number);
+select distinct "Age" from hr_data;
+select 'Attrition',count(*) from hr_data where "Attrition"=True union all
+select 'Non-Attrition',count(*) from hr_data where "Attrition"=False;
+select
+case 
+when "Age" between 18 and 30 THEN 'young'
+when "Age" between 31 and 45 then 'Middle_Agged'
+when "Age" between 46 and 60 then 'Old_Aged'
+else '60+' 1- 10,near 11-20 medium , 21-30 feature
+END As Age_group,
+//count (*) as Attrition_emp from hr_data where "Attrition"=TRUE
+count(*) as Total_employes from hr_data
+group by  Age_group;
+select distinct "Department" from hr_data;
+select 'department', count(*) from hr_data where "Attrition"=true group by 'department';
+select 'department',
+count(*) as Total_employees,
+count_if ("Attrition"=True) as emp_left
+from hr_data
+group by "Department"
+order by emp_left desc;
+select distinct "DistanceFromHome" from hr_data;
+select
+case
+when "DistanceFromHome" between 1 and 10 then 'near'
+when "DistanceFromHome" between 11 and 20 then 'medium'
+when "DistanceFromHome" between 21 and 30 then 'Far'
+else '30+'
+end as Distance_category,
+count(*) as total_emp from hr_data where "Attrition"=True
+group by Distance_category;
+
+select "DistanceFromHome",
+count(*) as total_employees
+from hr_data
+group by "DistanceFromHome"
+order by "DistanceFromHome";
+
+select "DistanceFromHome", "Department",
+count(*) as total_employees
+from hr_data
+group by "DistanceFromHome", "Department"
+order by "DistanceFromHome","Department";
+
+select
+case
+when "DistanceFromHome"<=10 then '1-10'
+when "DistanceFromHome" <=20 then '11-20'
+when "DistanceFromHome" <=30 then '21-30'
+end as Distance_category,"Department",
+count(*) as emp_left from hr_data where "Attrition"=TRUE
+group by Distance_category,"Department"
+order by Distance_category,"Department";
+
+select
+"MaritalStatus","Attrition",
+//count (*) as counts // 
+count(*) as emp_left from hr_data where "Attrition"=TRUE
+//from hr_data 
+group by "MaritalStatus","Attrition";
+
+select distinct "JobSatisfaction","Attrition",
+//count (*) as total_emp
+count(*) as emp_left from hr_data where "Attrition"=TRUE //used to get only true condition
+// hr_data
+group by "JobSatisfaction","Attrition"
+order by "JobSatisfaction";
+
+
+
+
+
