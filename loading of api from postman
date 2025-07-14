@@ -1,0 +1,26 @@
+let
+    //Define the url of API
+url="http://node.technicalhub.io:4001/api/get-students-data-by-aec",
+ // define body of API
+body="{
+     ""fromDate"":""2024-09-01"",
+     ""toDate"":""2024-09-04""
+      }",
+ //Define the Header of API
+ Headers=[
+       #"Content-Type"= "application/json"
+     ],
+//Send Request to the database using post API
+ Source=Web.Contents(url, [
+     Content=Text.ToBinary(body),
+     Headers=Headers
+  ]),
+
+//Receive the json Response
+   JsonResponse=Json.Document(Source),
+
+//check the Json Response
+resultlist=if List.Count(JsonResponse)>0 then JsonResponse else {}
+
+in
+   resultlist
